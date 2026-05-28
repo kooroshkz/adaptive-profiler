@@ -1,0 +1,57 @@
+# sample_schema.yml
+# Comprehensive example covering every supported configuration option.
+# Used by tests/test_schema.py to verify YAML parsing.
+
+version: 1
+
+# ── Model storage ─────────────────────────────────────────────────────────────
+model_store:
+  backend: local
+  local_dir: /tmp/adaptive_profiler_test_models
+
+# ── Training / Optuna settings ────────────────────────────────────────────────
+training:
+  n_trials: 3          # keep tests fast; production typically 25–50
+  min_train_rows: 50   # skip column if fewer valid rows
+  window_size: 180     # train on the most-recent 180 rows only
+  seed: 42
+
+# ── Per-column definitions ────────────────────────────────────────────────────
+columns:
+
+  # Standard Optuna-based AutoML — the most common case
+  - name: temperature_2m
+    description: "Air temperature at 2 m (°C)"
+    automl: true
+    checks:
+      not_null: true
+      range: [-60, 60]
+
+  # AutoML with a tuned flag threshold (overrides PyOD contamination threshold)
+  - name: surface_pressure
+    description: "Surface pressure (hPa)"
+    automl: true
+    flag_threshold: 0.45
+    checks:
+      not_null: true
+      range: [800, 1100]
+
+  # Manual model override — skips Optuna, uses fixed algorithm + hyperparameters
+  - name: precipitation
+    description: "Hourly precipitation (mm)"
+    automl: true
+    model: HBOS
+    hyperparameters:
+      n_bins: 15
+      contamination: 0.03
+    checks:
+      not_null: true
+      range: [0, 300]
+
+  # Rule-based checks only — ML disabled for this column
+  - name: wind_speed
+    description: "Wind speed (km/h)"
+    automl: false
+    checks:
+      not_null: true
+      range: [0, 200]
