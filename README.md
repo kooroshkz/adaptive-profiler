@@ -1,5 +1,10 @@
 # adaptive_profiler
 
+[![PyPI version](https://img.shields.io/pypi/v/adaptive-profiler.svg)](https://pypi.org/project/adaptive-profiler/)
+[![CI](https://github.com/kooroshkz/adaptive-profiler/actions/workflows/ci.yml/badge.svg)](https://github.com/kooroshkz/adaptive-profiler/actions/workflows/ci.yml)
+[![Python](https://img.shields.io/pypi/pyversions/adaptive-profiler.svg)](https://pypi.org/project/adaptive-profiler/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 AutoML anomaly detection and schema-driven data quality checks for ETL pipelines.
 
 Detects semantic anomalies that rule-based checks miss — stuck sensors, silent feeds, values that are numerically valid but statistically unusual. Each column gets its own model, trained on recent data, configured through a single YAML file.
