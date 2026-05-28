@@ -33,7 +33,7 @@ from .projection import ScalingBenchmark
 from .quality import QualityViolation, check_dataframe, quality_summary
 from .storage import ArtifactStore, LocalStore, S3Store, make_store
 
-__version__ = "0.2.0"
+__version__ = "1.0.0"
 __all__ = [
     # Main entry point
     "Profiler",
